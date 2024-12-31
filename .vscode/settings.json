@@ -1,0 +1,39 @@
+{
+	"prettier.singleQuote": false,
+	"files.autoSave": "off",
+	"extensions.autoUpdate": true,
+	"liveServer.settings.donotShowInfoMsg": true,
+	"prettier.printWidth": 80, // Adjusted to wrap lines around 80 characters
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"workbench.colorCustomizations": {
+		"activityBar.activeBackground": "#cf9e1f",
+		"activityBar.background": "#cf9e1f",
+		"activityBar.foreground": "#15202b",
+		"activityBar.inactiveForeground": "#15202b99",
+		"activityBarBadge.background": "#c8f7ea",
+		"activityBarBadge.foreground": "#15202b",
+		"commandCenter.border": "#e7e7e799",
+		"sash.hoverBorder": "#cf9e1f",
+		"statusBar.background": "#a37c18",
+		"statusBar.foreground": "#e7e7e7",
+		"statusBarItem.hoverBackground": "#cf9e1f",
+		"statusBarItem.remoteBackground": "#a37c18",
+		"statusBarItem.remoteForeground": "#e7e7e7",
+		"titleBar.activeBackground": "#a37c18",
+		"titleBar.activeForeground": "#e7e7e7",
+		"titleBar.inactiveBackground": "#a37c1899",
+		"titleBar.inactiveForeground": "#e7e7e799"
+	},
+	"peacock.color": "#a37c18",
+	"editor.wordWrap": "wordWrapColumn",
+	"editor.wordWrapColumn": 80, // Wraps long lines at around 80 characters,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.detectIndentation": false,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true
+}

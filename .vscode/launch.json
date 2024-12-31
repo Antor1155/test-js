@@ -1,0 +1,15 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Program",
+			"skipFiles": ["<node_internals>/**"],
+			// only one should stay uncommented prior to entering debug mode
+			// "program": "${workspaceFolder}/bin/www",
+			"program": "${workspaceFolder}/collectAllUrlsFromDb.js",
+			"envFile": "${workspaceFolder}/.env"
+		}
+	]
+}
