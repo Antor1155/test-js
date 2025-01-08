@@ -5,7 +5,8 @@ const path = require("path");
 const fs = require("fs");
 
 let number = 1;
-const projectFolderName = "heartliveS3UsedData";
+const dbStorage = "pencilDbData";
+const projectFolderName = "pencilDbUsedUrl";
 
 const collectionsToSkip = [
 	"gametransactions",
@@ -49,6 +50,8 @@ const collectionsToSkip = [
 	"devicebans",
 	"history",
 	"beanadmins",
+	"system.views",
+	"redis",
 ];
 
 // const bigTables = {
@@ -78,7 +81,7 @@ async function findUrlinCollection() {
 			}
 
 			const collection = db.collection(collectionInfo.name);
-			console.log("searching in Collection:", collectionInfo.name);
+			console.log("saving Collection:", collectionInfo.name);
 
 			const total = await collection.countDocuments({});
 			const batchSize = total < 500 ? total : 500; // Adjust the batch size as needed
@@ -91,16 +94,39 @@ async function findUrlinCollection() {
 
 			while (await cursor.hasNext()) {
 				const doc = await cursor.next();
-
-				const urls = containsUrl(doc);
-
-				if (urls.length) {
-					addToJson(urls);
+				if (doc) {
+					addToJson(doc, dbStorage, collectionInfo.name);
 				}
 			}
 		}
+		number = 1;
+		console.log("saving all db data completed");
 
-		console.log("!!! content not found in any collection");
+		const dbFilePath = path.join(__dirname, dbStorage);
+		const dbFiles = fs.readdir(dbFilePath, (err, files) => {
+			if (err) {
+				return colsole.log("unable to scan directory: ", err);
+			}
+
+			for (const file of files) {
+				console.log("scanning file: ", file);
+				const filePath = path.join(dbFilePath, file);
+
+				const data = fs.readFileSync(filePath);
+
+				const normalData = JSON.parse(data);
+
+				for (let data of normalData) {
+					const urls = containsUrl(data);
+
+					if (urls.length) {
+						addToJson(urls, projectFolderName, "userdUrls");
+					}
+				}
+			}
+		});
+
+		console.log("!!! getting all urls completed");
 		return null;
 	} catch (error) {
 		console.error(error);
@@ -159,12 +185,12 @@ const example2 = {};
 
 // console.log(containsUrl(exampleObj));
 
-const addToJson = (data) => {
+const addToJson = (data, folderName, fileName) => {
 	try {
 		const filePath = path.join(
 			__dirname,
-			`./${projectFolderName}`,
-			`${number}_userdUrls.json`
+			`./${folderName}`,
+			`${number}_${fileName}.json`
 		);
 
 		let fileData = [];
@@ -184,11 +210,7 @@ const addToJson = (data) => {
 		}
 
 		fs.writeFileSync(
-			path.join(
-				__dirname,
-				`./${projectFolderName}`,
-				`${number}_userdUrls.json`
-			),
+			path.join(__dirname, `./${folderName}`, `${number}_${fileName}.json`),
 			JSON.stringify(fileData, null, 2)
 		);
 	} catch (error) {
