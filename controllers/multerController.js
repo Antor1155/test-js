@@ -1,6 +1,6 @@
 const multerPostTest = (req, res) => {
 	try {
-		const file = req?.file;
+		const file = req?.file?.location;
 		const name = req?.body?.name;
 
 		console.log({ file, name });

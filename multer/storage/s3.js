@@ -21,7 +21,7 @@ const generateStorageS3 = ({
 		},
 		metadata: function (req, file, cb) {
 			cb(null, {
-				// "Name": file.originalname,
+				fieldName: file.fieldname,
 			});
 		},
 		key: function (req, file, cb) {
@@ -34,6 +34,8 @@ const generateStorageS3 = ({
 				filename;
 			filepath = filepath.replace("//", "/");
 			req.file_url = filepath;
+
+			console.log({ filepath });
 			cb(null, filepath);
 		},
 	});

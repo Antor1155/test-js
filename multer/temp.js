@@ -10,7 +10,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const tempUpload = multer({
-	storage: tempStorage,
+	storage: resourceStorage,
 	fileFilter,
 	limits: { fileSize: MAX_SIZE_TEMP_FILE },
 });
