@@ -1,0 +1,20 @@
+module.exports = {
+	MAX_SIZE_TEMP_FILE: 1024 * 1024 * 10,
+	MAX_SIZE_FILE: 1024 * 1024 * 100,
+	MAX_SIZE_IMAGE: 1024 * 1024 * 5,
+	MAX_SIZE_VIDEO: 1024 * 1024 * 100,
+	MAX_SIZE_AUDIO: 1024 * 1024 * 50,
+	MAX_SIZE_DOCUMENT: 1024 * 1024 * 50,
+	MAX_SIZE_COMPRESSED: 1024 * 1024 * 50,
+	MAX_SIZE_OTHER: 1024 * 1024 * 50,
+	ALLOWED_MIME_TYPES: [
+		"image/jpeg",
+		"image/png",
+		"image/gif",
+		"image/svg+xml",
+		"image/webp",
+		"video/mp4",
+		"video/webm",
+		"video/quicktime",
+	],
+}
