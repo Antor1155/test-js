@@ -5,8 +5,11 @@ const path = require("path");
 const fs = require("fs");
 
 let number = 1;
-const dbStorage = "pencilDbData";
-const projectFolderName = "pencilDbUsedUrl";
+// const dbStorage = "pencilDbData";
+// const projectFolderName = "pencilDbUsedUrl";
+
+const dbStorage = "sealionDbData";
+const projectFolderName = "sealionDbUsedUrl";
 
 const collectionsToSkip = [
 	"gametransactions",
@@ -218,6 +221,38 @@ const addToJson = (data, folderName, fileName) => {
 	}
 };
 
-findUrlinCollection();
+const extractUrl = () => {
+	try {
+		const dbFilePath = path.join(__dirname, dbStorage);
+		const dbFiles = fs.readdir(dbFilePath, (err, files) => {
+			if (err) {
+				return colsole.log("unable to scan directory: ", err);
+			}
+
+			for (const file of files) {
+				console.log("scanning file: ", file);
+				const filePath = path.join(dbFilePath, file);
+
+				const data = fs.readFileSync(filePath);
+
+				const normalData = JSON.parse(data);
+				console.log("file data size: ", normalData?.length);
+				for (let data of normalData) {
+					const urls = containsUrl(data);
+
+					if (urls.length) {
+						addToJson(urls, projectFolderName, "userdUrls");
+					}
+				}
+			}
+		});
+	} catch (error) {
+		console.error("error in extractUrl", error);
+	}
+};
+
+// findUrlinCollection();
+
+extractUrl();
 
 module.exports = { findUrlinCollection };
